@@ -9,11 +9,15 @@
 /* Begin PBXBuildFile section */
 		8E222BBB1B6EF9FD00C86CDC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E222BBA1B6EF9FD00C86CDC /* main.m */; };
 		8E222BBE1B6EF9FD00C86CDC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E222BBD1B6EF9FD00C86CDC /* AppDelegate.m */; };
-		8E222BC11B6EF9FD00C86CDC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E222BC01B6EF9FD00C86CDC /* ViewController.m */; };
 		8E222BC41B6EF9FD00C86CDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E222BC21B6EF9FD00C86CDC /* Main.storyboard */; };
 		8E222BC61B6EF9FD00C86CDC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E222BC51B6EF9FD00C86CDC /* Images.xcassets */; };
 		8E222BC91B6EF9FD00C86CDC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E222BC71B6EF9FD00C86CDC /* LaunchScreen.xib */; };
 		8E222BD51B6EF9FD00C86CDC /* MJdeFMTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E222BD41B6EF9FD00C86CDC /* MJdeFMTests.m */; };
+		8E222BE41B6EFAA300C86CDC /* UIView+YALConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E222BE01B6EFAA300C86CDC /* UIView+YALConstraints.m */; };
+		8E222BE51B6EFAA300C86CDC /* YALContextMenuTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E222BE31B6EFAA300C86CDC /* YALContextMenuTableView.m */; };
+		8E222BEB1B6EFB6100C86CDC /* MJTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E222BEA1B6EFB6100C86CDC /* MJTabBarController.m */; };
+		8E222BF01B6EFC0B00C86CDC /* ContextMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E222BEE1B6EFC0B00C86CDC /* ContextMenuCell.m */; };
+		8E222BF11B6EFC0B00C86CDC /* ContextMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E222BEF1B6EFC0B00C86CDC /* ContextMenuCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,14 +36,22 @@
 		8E222BBA1B6EF9FD00C86CDC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8E222BBC1B6EF9FD00C86CDC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8E222BBD1B6EF9FD00C86CDC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8E222BBF1B6EF9FD00C86CDC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8E222BC01B6EF9FD00C86CDC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8E222BC31B6EF9FD00C86CDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8E222BC51B6EF9FD00C86CDC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8E222BC81B6EF9FD00C86CDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		8E222BCE1B6EF9FD00C86CDC /* MJdeFMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MJdeFMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E222BD31B6EF9FD00C86CDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E222BD41B6EF9FD00C86CDC /* MJdeFMTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MJdeFMTests.m; sourceTree = "<group>"; };
+		8E222BDF1B6EFAA300C86CDC /* UIView+YALConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+YALConstraints.h"; sourceTree = "<group>"; };
+		8E222BE01B6EFAA300C86CDC /* UIView+YALConstraints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+YALConstraints.m"; sourceTree = "<group>"; };
+		8E222BE11B6EFAA300C86CDC /* YALContextMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALContextMenuCell.h; sourceTree = "<group>"; };
+		8E222BE21B6EFAA300C86CDC /* YALContextMenuTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALContextMenuTableView.h; sourceTree = "<group>"; };
+		8E222BE31B6EFAA300C86CDC /* YALContextMenuTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALContextMenuTableView.m; sourceTree = "<group>"; };
+		8E222BE91B6EFB6100C86CDC /* MJTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MJTabBarController.h; path = Controller/MJTabBarController.h; sourceTree = "<group>"; };
+		8E222BEA1B6EFB6100C86CDC /* MJTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MJTabBarController.m; path = Controller/MJTabBarController.m; sourceTree = "<group>"; };
+		8E222BED1B6EFC0B00C86CDC /* ContextMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextMenuCell.h; sourceTree = "<group>"; };
+		8E222BEE1B6EFC0B00C86CDC /* ContextMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextMenuCell.m; sourceTree = "<group>"; };
+		8E222BEF1B6EFC0B00C86CDC /* ContextMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContextMenuCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +93,11 @@
 		8E222BB71B6EF9FD00C86CDC /* MJdeFM */ = {
 			isa = PBXGroup;
 			children = (
+				8E222BE61B6EFAAB00C86CDC /* Model */,
+				8E222BE71B6EFABE00C86CDC /* View */,
+				8E222BE81B6EFAC600C86CDC /* Controller */,
 				8E222BBC1B6EF9FD00C86CDC /* AppDelegate.h */,
 				8E222BBD1B6EF9FD00C86CDC /* AppDelegate.m */,
-				8E222BBF1B6EF9FD00C86CDC /* ViewController.h */,
-				8E222BC01B6EF9FD00C86CDC /* ViewController.m */,
 				8E222BC21B6EF9FD00C86CDC /* Main.storyboard */,
 				8E222BC51B6EF9FD00C86CDC /* Images.xcassets */,
 				8E222BC71B6EF9FD00C86CDC /* LaunchScreen.xib */,
@@ -117,6 +130,53 @@
 				8E222BD31B6EF9FD00C86CDC /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8E222BDE1B6EFAA300C86CDC /* YALContextMenu */ = {
+			isa = PBXGroup;
+			children = (
+				8E222BDF1B6EFAA300C86CDC /* UIView+YALConstraints.h */,
+				8E222BE01B6EFAA300C86CDC /* UIView+YALConstraints.m */,
+				8E222BE11B6EFAA300C86CDC /* YALContextMenuCell.h */,
+				8E222BE21B6EFAA300C86CDC /* YALContextMenuTableView.h */,
+				8E222BE31B6EFAA300C86CDC /* YALContextMenuTableView.m */,
+			);
+			path = YALContextMenu;
+			sourceTree = "<group>";
+		};
+		8E222BE61B6EFAAB00C86CDC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		8E222BE71B6EFABE00C86CDC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8E222BEC1B6EFC0B00C86CDC /* ContextMenuCell */,
+				8E222BDE1B6EFAA300C86CDC /* YALContextMenu */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8E222BE81B6EFAC600C86CDC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8E222BE91B6EFB6100C86CDC /* MJTabBarController.h */,
+				8E222BEA1B6EFB6100C86CDC /* MJTabBarController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		8E222BEC1B6EFC0B00C86CDC /* ContextMenuCell */ = {
+			isa = PBXGroup;
+			children = (
+				8E222BED1B6EFC0B00C86CDC /* ContextMenuCell.h */,
+				8E222BEE1B6EFC0B00C86CDC /* ContextMenuCell.m */,
+				8E222BEF1B6EFC0B00C86CDC /* ContextMenuCell.xib */,
+			);
+			path = ContextMenuCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,6 +261,7 @@
 			files = (
 				8E222BC41B6EF9FD00C86CDC /* Main.storyboard in Resources */,
 				8E222BC91B6EF9FD00C86CDC /* LaunchScreen.xib in Resources */,
+				8E222BF11B6EFC0B00C86CDC /* ContextMenuCell.xib in Resources */,
 				8E222BC61B6EF9FD00C86CDC /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,8 +280,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E222BC11B6EF9FD00C86CDC /* ViewController.m in Sources */,
+				8E222BEB1B6EFB6100C86CDC /* MJTabBarController.m in Sources */,
+				8E222BE51B6EFAA300C86CDC /* YALContextMenuTableView.m in Sources */,
+				8E222BE41B6EFAA300C86CDC /* UIView+YALConstraints.m in Sources */,
 				8E222BBE1B6EF9FD00C86CDC /* AppDelegate.m in Sources */,
+				8E222BF01B6EFC0B00C86CDC /* ContextMenuCell.m in Sources */,
 				8E222BBB1B6EF9FD00C86CDC /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -418,6 +482,7 @@
 				8E222BDA1B6EF9FD00C86CDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8E222BDB1B6EF9FD00C86CDC /* Build configuration list for PBXNativeTarget "MJdeFMTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +491,7 @@
 				8E222BDD1B6EF9FD00C86CDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
