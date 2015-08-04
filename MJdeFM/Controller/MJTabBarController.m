@@ -9,6 +9,8 @@
 #import "MJTabBarController.h"
 #import "ContextMenuCell.h"
 #import "YALContextMenuTableView.h"
+#import "MJPlayerViewController.h"
+#import "Masonry.h"
 
 static NSString* const menuCellIdentifier = @"rotationCell";
 
@@ -33,13 +35,14 @@ static NSString* const menuCellIdentifier = @"rotationCell";
     [self initiateMenuOptions];
     [self initButton];
 
-    UIViewController* v1 = [UIViewController new];
-    v1.view.backgroundColor = [UIColor colorWithRed:0.78f green:0.78f blue:0.78f alpha:1.0f];
+    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MJPlayerViewController* playerVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"MJPlayerViewController"];
+
     UIViewController* v2 = [UIViewController new];
     v2.view.backgroundColor = [UIColor greenColor];
     UIViewController* v3 = [UIViewController new];
     v3.view.backgroundColor = [UIColor yellowColor];
-    self.viewControllers = @[ v1, v2, v3 ];
+    self.viewControllers = @[ playerVC, v2, v3 ];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -106,12 +109,18 @@ static NSString* const menuCellIdentifier = @"rotationCell";
 
 - (void)initButton
 {
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(screenRect.size.width - 44,
-                                                           0, 44, 44)];
-    [button setBackgroundImage:[UIImage imageNamed:@"menuIcon"] forState:UIControlStateNormal];
+    UIButton* button = [UIButton new];
+    [button setBackgroundImage:[UIImage imageNamed:@"menuIcon"]
+                      forState:UIControlStateNormal];
     [button addTarget:self action:@selector(presentMenuButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
+
+    [button mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.top.equalTo(self.view.mas_top).offset(0);
+        make.right.equalTo(self.view.mas_right).offset(0);
+        make.height.equalTo(@64);
+        make.width.equalTo(@64);
+    }];
 }
 
 - (void)initiateMenuOptions
@@ -143,18 +152,18 @@ static NSString* const menuCellIdentifier = @"rotationCell";
     [tableView dismisWithIndexPath:indexPath];
     switch (indexPath.row) {
     case 0:
+        break;
     case 1:
     case 2:
-        self.selectedIndex = indexPath.row;
-        break;
     case 3:
+        self.selectedIndex = indexPath.row - 1;
         break;
     }
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    return 45;
+    return 64;
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
