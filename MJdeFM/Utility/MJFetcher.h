@@ -13,8 +13,8 @@
 @class MJChannel;
 @class MJFetcher;
 
-typedef void (^MJMJFetcherErrorBlock)(MJFetcher* fetcher, NSError* error);
-typedef void (^MJMJFetcherSuccessBlock)(MJFetcher* fetcher, id data);
+typedef void (^MJFetcherErrorBlock)(MJFetcher* fetcher, NSError* error);
+typedef void (^MJFetcherSuccessBlock)(MJFetcher* fetcher, id data);
 
 @interface MJFetcher : NSObject
 
@@ -22,6 +22,15 @@ typedef void (^MJMJFetcherSuccessBlock)(MJFetcher* fetcher, id data);
 
 + (MJFetcher*)sharedFetcher;
 
-- (void)fetchPlaylistwithType:(NSString*)type song:(MJSong*)song passedTime:(NSTimeInterval)passedTime channel:(MJChannel*)channel success:(MJMJFetcherSuccessBlock)successBlock failure:(MJMJFetcherErrorBlock)errorBlock;
+- (void)fetchPlaylistwithType:(NSString*)type song:(MJSong*)song passedTime:(NSTimeInterval)passedTime channel:(MJChannel*)channel success:(MJFetcherSuccessBlock)successBlock failure:(MJFetcherErrorBlock)errorBlock;
 
+/**
+ *  获取验证码图片
+ */
+- (void)fetchCaptchaImageURLSuccess:(MJFetcherSuccessBlock)successBlock failure:(MJFetcherSuccessBlock)errorBlock;
+
+/**
+ *  用户登录
+ */
+- (void)loginwithUsername:(NSString*)username password:(NSString*)password captcha:(NSString*)captcha captchaID:(NSString*)captchaID rememberOnorOff:(NSString*)rememberOnorOff success:(MJFetcherSuccessBlock)successBlock failure:(MJFetcherErrorBlock)errorBlock;
 @end

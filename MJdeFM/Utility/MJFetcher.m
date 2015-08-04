@@ -9,12 +9,13 @@
 #import "MJFetcher.h"
 #import "MJSong.h"
 #import "MJChannel.h"
+#import "MJUserInfo.h"
 
 #define PLAYLISTURLFORMATSTRING @"http://douban.fm/j/mine/playlist?type=%@&sid=%@&pt=%f&channel=%@&from=mainsite"
-#define LOGINURLSTRING @"http://douban.fm/partner/logout"
-#define LOGOUTURLSTRING @"http://douban.fm/partner/logout"
 #define CAPTCHAIDURLSTRING @"http://douban.fm/j/new_captcha"
-#define CAPTCHAIMGURLFORMATSTRING @"http://douban.fm/misc/captcha?size=m&id=%@"
+#define CAPTCHAIMGURLFORMATSTRING @"http://douban.fm/misc/captcha?size=l&id=%@"
+#define LOGINURLSTRING @"http://douban.fm/j/login"
+#define LOGOUTURLSTRING @"http://douban.fm/partner/logout"
 
 @implementation MJFetcher
 
@@ -63,7 +64,7 @@
 /**
  *  获取播放列表信息
  */
-- (void)fetchPlaylistwithType:(NSString*)type song:(MJSong*)song passedTime:(NSTimeInterval)passedTime channel:(MJChannel*)channel success:(MJMJFetcherSuccessBlock)successBlock failure:(MJMJFetcherErrorBlock)errorBlock
+- (void)fetchPlaylistwithType:(NSString*)type song:(MJSong*)song passedTime:(NSTimeInterval)passedTime channel:(MJChannel*)channel success:(MJFetcherSuccessBlock)successBlock failure:(MJFetcherErrorBlock)errorBlock
 {
     NSString* playlistURLString = [NSString stringWithFormat:PLAYLISTURLFORMATSTRING, type, song.sid, passedTime, channel.ID];
 
@@ -112,4 +113,44 @@
         }];
 }
 
+- (void)fetchCaptchaImageURLSuccess:(MJFetcherSuccessBlock)successBlock failure:(MJFetcherSuccessBlock)errorBlock
+{
+    self.requestOperation = [[self HTTPRequestOperationManager] GET:CAPTCHAIDURLSTRING
+        parameters:nil
+        success:^(AFHTTPRequestOperation* operation, id responseObject) {
+            NSMutableString* captchaID = [[NSMutableString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            [captchaID replaceOccurrencesOfString:@"\"" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [captchaID length])];
+            NSString* captchaImageURL = [NSString stringWithFormat:CAPTCHAIMGURLFORMATSTRING, captchaID];
+            NSArray* captchaArray = @[ captchaID, captchaImageURL ];
+            successBlock(self, captchaArray);
+        }
+        failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+            errorBlock(self, error);
+        }];
+}
+
+- (void)loginwithUsername:(NSString*)username password:(NSString*)password captcha:(NSString*)captcha captchaID:(NSString*)captchaID rememberOnorOff:(NSString*)rememberOnorOff success:(MJFetcherSuccessBlock)successBlock failure:(MJFetcherErrorBlock)errorBlock
+{
+    NSDictionary* loginParameters = @{ @"source" : @"radio",
+        @"alias" : username,
+        @"form_password" : password,
+        @"captcha_solution" : captcha,
+        @"captcha_id" : captchaID,
+        @"remember" : rememberOnorOff
+    };
+
+    self.requestOperation = [[self JSONRequestOperationManager] POST:LOGINURLSTRING
+        parameters:loginParameters
+        success:^(AFHTTPRequestOperation* operation, id responseObject) {
+            NSDictionary* result = responseObject;
+            MJUserInfo* userInfo = [[MJUserInfo alloc] initWithDictionary:result];
+            successBlock(self, userInfo);
+            //                [appDelegate.userInfo archiverUserInfo];
+            //                NSLog(@"COOKIES:%@", appDelegate.userInfo.cookies);
+            //                [self.delegate loginSuccess];
+        }
+        failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+            errorBlock(self, error);
+        }];
+}
 @end
