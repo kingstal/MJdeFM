@@ -24,6 +24,8 @@
 		8E2687041B6F50E800C86D76 /* MJChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E2687031B6F50E800C86D76 /* MJChannel.m */; };
 		8E2687081B6F58E600C86D76 /* MJFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E2687071B6F58E600C86D76 /* MJFetcher.m */; };
 		8E26870B1B6F65B500C86D76 /* MJChannelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E26870A1B6F65B500C86D76 /* MJChannelManager.m */; };
+		8E34A9F61B7056E2001AC701 /* MJLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E34A9F51B7056E2001AC701 /* MJLoginViewController.m */; };
+		8E34A9F91B705CF6001AC701 /* MJUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E34A9F81B705CF6001AC701 /* MJUserInfoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +72,10 @@
 		8E2687071B6F58E600C86D76 /* MJFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MJFetcher.m; path = Utility/MJFetcher.m; sourceTree = "<group>"; };
 		8E2687091B6F65B500C86D76 /* MJChannelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MJChannelManager.h; path = Model/MJChannelManager.h; sourceTree = "<group>"; };
 		8E26870A1B6F65B500C86D76 /* MJChannelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MJChannelManager.m; path = Model/MJChannelManager.m; sourceTree = "<group>"; };
+		8E34A9F41B7056E2001AC701 /* MJLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MJLoginViewController.h; path = Controller/MJLoginViewController.h; sourceTree = "<group>"; };
+		8E34A9F51B7056E2001AC701 /* MJLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MJLoginViewController.m; path = Controller/MJLoginViewController.m; sourceTree = "<group>"; };
+		8E34A9F71B705CF6001AC701 /* MJUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MJUserInfoViewController.h; path = Controller/MJUserInfoViewController.h; sourceTree = "<group>"; };
+		8E34A9F81B705CF6001AC701 /* MJUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MJUserInfoViewController.m; path = Controller/MJUserInfoViewController.m; sourceTree = "<group>"; };
 		F9F9F984A31501415E2157F4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -213,6 +219,10 @@
 				8E222BEA1B6EFB6100C86CDC /* MJTabBarController.m */,
 				8E2686FC1B6F496400C86D76 /* MJPlayerViewController.h */,
 				8E2686FD1B6F496400C86D76 /* MJPlayerViewController.m */,
+				8E34A9F41B7056E2001AC701 /* MJLoginViewController.h */,
+				8E34A9F51B7056E2001AC701 /* MJLoginViewController.m */,
+				8E34A9F71B705CF6001AC701 /* MJUserInfoViewController.h */,
+				8E34A9F81B705CF6001AC701 /* MJUserInfoViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -377,7 +387,9 @@
 				8E222BE51B6EFAA300C86CDC /* YALContextMenuTableView.m in Sources */,
 				8E2686FE1B6F496400C86D76 /* MJPlayerViewController.m in Sources */,
 				8E26870B1B6F65B500C86D76 /* MJChannelManager.m in Sources */,
+				8E34A9F61B7056E2001AC701 /* MJLoginViewController.m in Sources */,
 				8E2687081B6F58E600C86D76 /* MJFetcher.m in Sources */,
+				8E34A9F91B705CF6001AC701 /* MJUserInfoViewController.m in Sources */,
 				8E222BE41B6EFAA300C86CDC /* UIView+YALConstraints.m in Sources */,
 				8E222BBE1B6EF9FD00C86CDC /* AppDelegate.m in Sources */,
 				8E222BF01B6EFC0B00C86CDC /* ContextMenuCell.m in Sources */,

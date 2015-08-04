@@ -11,6 +11,7 @@
 #import "YALContextMenuTableView.h"
 #import "MJPlayerViewController.h"
 #import "Masonry.h"
+#import "MJUserInfoViewController.h"
 
 static NSString* const menuCellIdentifier = @"rotationCell";
 
@@ -36,13 +37,14 @@ static NSString* const menuCellIdentifier = @"rotationCell";
     [self initButton];
 
     UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    MJPlayerViewController* playerVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"MJPlayerViewController"];
+    MJPlayerViewController* playerVC = [mainStoryboard instantiateViewControllerWithIdentifier:NSStringFromClass([MJPlayerViewController class])];
+    MJUserInfoViewController* userInfoVC = [mainStoryboard instantiateViewControllerWithIdentifier:NSStringFromClass([MJUserInfoViewController class])];
 
     UIViewController* v2 = [UIViewController new];
     v2.view.backgroundColor = [UIColor greenColor];
     UIViewController* v3 = [UIViewController new];
     v3.view.backgroundColor = [UIColor yellowColor];
-    self.viewControllers = @[ playerVC, v2, v3 ];
+    self.viewControllers = @[ playerVC, v2, userInfoVC ];
 }
 
 - (void)viewWillAppear:(BOOL)animated
