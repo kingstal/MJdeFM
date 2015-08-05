@@ -9,6 +9,8 @@
 #import "MJChannelViewController.h"
 #import "MJChannelManager.h"
 #import "MJRefresh.h"
+#import "MJUserInfoManager.h"
+#import "MBProgressHUD.h"
 
 @interface MJChannelViewController () <MJChannelManagerDelegate>
 
@@ -94,6 +96,20 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    if (indexPath.section == 0 && indexPath.row == 1 && ![MJUserInfoManager sharedUserInfoManager].userInfo) {
+        MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+        // Configure for text only and offset down
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"还没有登录，赶紧登录哦！";
+        hud.margin = 10.f;
+        hud.removeFromSuperViewOnHide = YES;
+
+        [hud hide:YES afterDelay:3];
+
+        return;
+    }
 
     MJChannel* channel = self.channels[indexPath.section][indexPath.row];
     NSDictionary* dic = @{ @"channel" : channel };

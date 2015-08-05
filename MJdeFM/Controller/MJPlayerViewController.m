@@ -13,6 +13,8 @@
 #import "MJChannelManager.h"
 #import "MJSong.h"
 #import "UIImageView+AFNetworking.h"
+#import "MJUserInfoManager.h"
+#import "MBProgressHUD.h"
 
 /**
  n : None. Used for get a song list only.
@@ -72,18 +74,14 @@
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeChannel:) name:MJChannelViewControllerDidSelectChannelNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeChannel:)
+                                                 name:MJChannelViewControllerDidSelectChannelNotification
+                                               object:nil];
 
     [self setUp];
 
     [self loadPlayListWithType:GETSONGTLISTTYPE];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:YES];
-    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
-    [self resignFirstResponder];
 }
 
 - (void)dealloc
@@ -154,11 +152,11 @@
     [self.player play];
     self.currentSongIndex++;
 
-    if (![self isFirstResponder]) {
-        //远程控制
-        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-        [self becomeFirstResponder];
-    }
+    //    if (![self isFirstResponder]) {
+    //        //远程控制
+    //        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    //        [self becomeFirstResponder];
+    //    }
 
     self.songTitle.text = playingSong.title;
     self.songArtist.text = playingSong.artist;
@@ -220,6 +218,19 @@
         }];
 }
 
+- (void)user:(MJUserInfo*)user addHeartSong:(MJSong*)song action:(NSString*)action
+{
+    [[MJFetcher sharedFetcher] user:user
+        addHeartSong:song
+        action:action
+        success:^(MJFetcher* fetcher, id data) {
+            NSLog(@"添加红心：%@", action);
+        }
+        failure:^(MJFetcher* fetcher, NSError* error) {
+            NSLog(@"%@", error);
+        }];
+}
+
 #pragma mark - IBAction
 
 - (IBAction)pauseButton:(UIButton*)sender
@@ -243,6 +254,31 @@
 
 - (IBAction)likeButton:(UIButton*)sender
 {
+    MJUserInfo* user = [[MJUserInfoManager sharedUserInfoManager] userInfo];
+    if (!user) {
+        MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+        // Configure for text only and offset down
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"还没有登录，赶紧登录哦！";
+        hud.margin = 10.f;
+        hud.removeFromSuperViewOnHide = YES;
+
+        [hud hide:YES afterDelay:3];
+
+        return;
+    }
+
+    if (![self.playingSong.like intValue]) {
+        self.playingSong.like = @"1";
+        [self.likeButton setBackgroundImage:[UIImage imageNamed:@"heart2"] forState:UIControlStateNormal];
+        [self user:user addHeartSong:self.playingSong action:@"y"];
+    }
+    else {
+        self.playingSong.like = @"0";
+        [self.likeButton setBackgroundImage:[UIImage imageNamed:@"heart1"] forState:UIControlStateNormal];
+        [self user:user addHeartSong:self.playingSong action:@"n"];
+    }
 }
 
 - (IBAction)deleteButton:(UIButton*)sender
@@ -297,13 +333,16 @@
                      forKey:MPMediaItemPropertyTitle];
             [dict setObject:self.playingSong.artist
                      forKey:MPMediaItemPropertyArtist];
-            UIImage* tempImage = self.picture.image;
-            if (tempImage != nil) {
-                [dict setObject:[[MPMediaItemArtwork alloc] initWithImage:tempImage] forKey:MPMediaItemPropertyArtwork];
-            }
             [dict
                 setObject:[NSNumber numberWithFloat:[self.playingSong.length floatValue]]
                    forKey:MPMediaItemPropertyPlaybackDuration];
+
+            NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.playingSong.picture]];
+            UIImage* posterImage = [UIImage imageWithData:data];
+            if (posterImage) {
+                [dict setObject:[[MPMediaItemArtwork alloc] initWithImage:posterImage] forKey:MPMediaItemPropertyArtwork];
+            }
+
             [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:dict];
         }
     }

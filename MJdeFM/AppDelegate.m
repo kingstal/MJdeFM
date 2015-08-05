@@ -21,6 +21,10 @@
     // Override point for customization after application launch.
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
+    //远程控制
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
+
     // 如果已经登录，从文件中读取保存的登录信息
     [MJUserInfoManager sharedUserInfoManager].userInfo = [[MJUserInfoManager sharedUserInfoManager] unarchiverUserInfo];
 

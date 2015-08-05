@@ -44,4 +44,10 @@ typedef void (^MJFetcherSuccessBlock)(MJFetcher* fetcher, id data);
  *  更新 Channel
  */
 - (void)fetchChannelWithURL:(NSString*)url success:(MJFetcherSuccessBlock)successBlock failure:(MJFetcherErrorBlock)errorBlock;
+
+/**
+ *  添加红心歌曲
+ */
+- (void)user:(MJUserInfo*)user addHeartSong:(MJSong*)song action:(NSString*)action success:(MJFetcherSuccessBlock)successBlock failure:(MJFetcherErrorBlock)errorBlock;
+
 @end

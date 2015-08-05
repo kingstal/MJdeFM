@@ -16,6 +16,7 @@
 #define CAPTCHAIMGURLFORMATSTRING @"http://douban.fm/misc/captcha?size=l&id=%@"
 #define LOGINURLSTRING @"http://douban.fm/j/login"
 #define LOGOUTURLSTRING @"http://douban.fm/partner/logout"
+#define ADDHEARTSONGURL @"http://douban.fm/j/song/%@/interest"
 
 @implementation MJFetcher
 
@@ -82,33 +83,8 @@
                 [songs addObject:tempSong];
             }
             successBlock(self, songs);
-            //
-            //            if ([type isEqualToString:@"r"]) {
-            //                [SongInfo setCurrentSongIndex:-1];
-            //            }
-            //            else {
-            //                if ([appDelegate.playList count] != 0) {
-            //                    [SongInfo setCurrentSongIndex:0];
-            //                    [SongInfo setCurrentSong:[appDelegate.playList objectAtIndex:[SongInfo currentSongIndex]]];
-            //                    [appDelegate.player setContentURL:[NSURL URLWithString:[SongInfo currentSong].url]];
-            //                    [appDelegate.player play];
-            //                }
-            //                //如果是未登录用户第一次使用红心列表，会导致列表中无歌曲
-            //                else {
-            //                    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"HeyMan" message:@"红心列表中没有歌曲，请您先登陆，或者添加红心歌曲" delegate:self cancelButtonTitle:@"GET" otherButtonTitles:nil];
-            //                    [alertView show];
-            //                    ChannelInfo* myPrivateChannel = [[ChannelInfo alloc] init];
-            //                    myPrivateChannel.name = @"我的私人";
-            //                    myPrivateChannel.ID = @"0";
-            //                    [ChannelInfo updateCurrentCannel:myPrivateChannel];
-            //                }
-            //            }
-            //            [self.delegate reloadTableviewData];
         }
         failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-            //            UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"HeyMan" message:@"登陆失败啦" delegate:self cancelButtonTitle:@"哦,酱紫" otherButtonTitles:nil];
-            //            [alertView show];
-            //            NSLog(@"LOADPLAYLIST_ERROR:%@", error);
             errorBlock(self, error);
         }];
 }
@@ -175,6 +151,21 @@
             NSDictionary* result = responseObject;
             NSDictionary* channels = [result objectForKey:@"data"];
             successBlock(self, channels);
+        }
+        failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+            errorBlock(self, error);
+        }];
+}
+
+- (void)user:(MJUserInfo*)user addHeartSong:(MJSong*)song action:(NSString*)action success:(MJFetcherSuccessBlock)successBlock failure:(MJFetcherErrorBlock)errorBlock
+{
+    NSDictionary* parameters = @{ @"ck" : user.cookies,
+        @"action" : action };
+
+    self.requestOperation = [[self HTTPRequestOperationManager] POST:[NSString stringWithFormat:ADDHEARTSONGURL, song.sid]
+        parameters:parameters
+        success:^(AFHTTPRequestOperation* operation, id responseObject) {
+            successBlock(self, responseObject);
         }
         failure:^(AFHTTPRequestOperation* operation, NSError* error) {
             errorBlock(self, error);
