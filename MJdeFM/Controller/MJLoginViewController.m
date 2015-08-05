@@ -10,6 +10,7 @@
 #import "MJFetcher.h"
 #import "UIButton+AFNetworking.h"
 #import "MJUserInfo.h"
+#import "MBProgressHUD.h"
 
 @interface MJLoginViewController ()
 
@@ -54,6 +55,8 @@ viewWillAppear:(BOOL)animated
 
 - (IBAction)submitButtonTapped:(UIButton*)sender
 {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
     NSString* username = _username.text;
     NSString* password = _password.text;
     NSString* captcha = _captcha.text;
@@ -69,6 +72,7 @@ viewWillAppear:(BOOL)animated
                 if ([self.delegate respondsToSelector:@selector(loginViewControllerLoginSuccess:userInfo:)]) {
                     [self.delegate loginViewControllerLoginSuccess:self userInfo:userInfo];
                 }
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             }
         }
         failure:^(MJFetcher* fetcher, NSError* error) {

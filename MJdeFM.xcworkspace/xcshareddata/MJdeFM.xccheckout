@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F3C2D8C2-4D36-49B1-9A88-642E114D6138</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MJdeFM</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>72EB40751BAE138A692715166AF76AC2720A4CC6</key>
+		<string>https://github.com/kingstal/MJdeFM.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MJdeFM.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>72EB40751BAE138A692715166AF76AC2720A4CC6</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/kingstal/MJdeFM.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>72EB40751BAE138A692715166AF76AC2720A4CC6</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>72EB40751BAE138A692715166AF76AC2720A4CC6</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MJdeFM</string>
+		</dict>
+	</array>
+</dict>
+</plist>

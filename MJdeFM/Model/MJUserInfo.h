@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MJUserInfo : NSObject
+@interface MJUserInfo : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString* login; // 0 : 登录成功
 @property (nonatomic, strong) NSString* cookies;

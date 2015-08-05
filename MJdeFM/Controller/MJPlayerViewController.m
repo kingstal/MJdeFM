@@ -72,6 +72,8 @@
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeChannel:) name:MJChannelViewControllerDidSelectChannelNotification object:nil];
+
     [self setUp];
 
     [self loadPlayListWithType:GETSONGTLISTTYPE];
@@ -136,6 +138,13 @@
     else {
         self.playingSong = self.playList[self.currentSongIndex];
     }
+}
+
+- (void)changeChannel:(NSNotification*)notification
+{
+    MJChannel* channel = notification.userInfo[@"channel"];
+    [MJChannelManager sharedChannelManager].currentChannel = channel;
+    [self loadPlayListWithType:GETSONGTLISTTYPE];
 }
 
 - (void)setPlayingSong:(MJSong*)playingSong

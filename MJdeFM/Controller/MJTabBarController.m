@@ -10,8 +10,9 @@
 #import "ContextMenuCell.h"
 #import "YALContextMenuTableView.h"
 #import "MJPlayerViewController.h"
-#import "Masonry.h"
 #import "MJUserInfoViewController.h"
+#import "MJChannelViewController.h"
+#import "Masonry.h"
 
 static NSString* const menuCellIdentifier = @"rotationCell";
 
@@ -39,12 +40,9 @@ static NSString* const menuCellIdentifier = @"rotationCell";
     UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MJPlayerViewController* playerVC = [mainStoryboard instantiateViewControllerWithIdentifier:NSStringFromClass([MJPlayerViewController class])];
     MJUserInfoViewController* userInfoVC = [mainStoryboard instantiateViewControllerWithIdentifier:NSStringFromClass([MJUserInfoViewController class])];
+    MJChannelViewController* channelVC = [mainStoryboard instantiateViewControllerWithIdentifier:NSStringFromClass([MJChannelViewController class])];
 
-    UIViewController* v2 = [UIViewController new];
-    v2.view.backgroundColor = [UIColor greenColor];
-    UIViewController* v3 = [UIViewController new];
-    v3.view.backgroundColor = [UIColor yellowColor];
-    self.viewControllers = @[ playerVC, v2, userInfoVC ];
+    self.viewControllers = @[ playerVC, channelVC, userInfoVC ];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -118,7 +116,7 @@ static NSString* const menuCellIdentifier = @"rotationCell";
     [self.view addSubview:button];
 
     [button mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.top.equalTo(self.view.mas_top).offset(0);
+        make.top.equalTo(self.view.mas_top).offset(3);
         make.right.equalTo(self.view.mas_right).offset(0);
         make.height.equalTo(@64);
         make.width.equalTo(@64);
@@ -144,7 +142,7 @@ static NSString* const menuCellIdentifier = @"rotationCell";
 
 - (void)contextMenuTableView:(YALContextMenuTableView*)contextMenuTableView didDismissWithIndexPath:(NSIndexPath*)indexPath
 {
-    NSLog(@"Menu dismissed with indexpath = %@", indexPath);
+    //    NSLog(@"Menu dismissed with indexpath = %@", indexPath);
 }
 
 #pragma mark - UITableViewDataSource, UITableViewDelegate

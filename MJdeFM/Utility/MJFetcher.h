@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 
 @class MJSong;
+@class MJUserInfo;
 @class MJChannel;
 @class MJFetcher;
 
@@ -33,4 +34,14 @@ typedef void (^MJFetcherSuccessBlock)(MJFetcher* fetcher, id data);
  *  用户登录
  */
 - (void)loginwithUsername:(NSString*)username password:(NSString*)password captcha:(NSString*)captcha captchaID:(NSString*)captchaID rememberOnorOff:(NSString*)rememberOnorOff success:(MJFetcherSuccessBlock)successBlock failure:(MJFetcherErrorBlock)errorBlock;
+
+/**
+ *  用户注销
+ */
+- (void)logoutUser:(MJUserInfo*)userInfo success:(MJFetcherSuccessBlock)successBlock failure:(MJFetcherErrorBlock)errorBlock;
+
+/**
+ *  更新 Channel
+ */
+- (void)fetchChannelWithURL:(NSString*)url success:(MJFetcherSuccessBlock)successBlock failure:(MJFetcherErrorBlock)errorBlock;
 @end

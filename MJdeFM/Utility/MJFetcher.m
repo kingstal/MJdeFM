@@ -145,9 +145,36 @@
             NSDictionary* result = responseObject;
             MJUserInfo* userInfo = [[MJUserInfo alloc] initWithDictionary:result];
             successBlock(self, userInfo);
-            //                [appDelegate.userInfo archiverUserInfo];
-            //                NSLog(@"COOKIES:%@", appDelegate.userInfo.cookies);
-            //                [self.delegate loginSuccess];
+        }
+        failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+            errorBlock(self, error);
+        }];
+}
+
+- (void)logoutUser:(MJUserInfo*)userInfo success:(MJFetcherSuccessBlock)successBlock failure:(MJFetcherErrorBlock)errorBlock
+{
+    NSDictionary* logoutParameters = @{ @"source" : @"radio",
+        @"ck" : userInfo.cookies,
+        @"no_login" : @"y" };
+    self.requestOperation = [[self HTTPRequestOperationManager] GET:LOGOUTURLSTRING
+        parameters:logoutParameters
+        success:^(AFHTTPRequestOperation* operation, id responseObject) {
+            successBlock(self, responseObject);
+        }
+        failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+            errorBlock(self, error);
+        }];
+}
+
+- (void)fetchChannelWithURL:(NSString*)url success:(MJFetcherSuccessBlock)successBlock failure:(MJFetcherErrorBlock)errorBlock
+{
+    self.requestOperation = [[self JSONRequestOperationManager] GET:url
+        parameters:nil
+        success:^(AFHTTPRequestOperation* operation, id responseObject) {
+            NSLog(@"--succcess:%@", url);
+            NSDictionary* result = responseObject;
+            NSDictionary* channels = [result objectForKey:@"data"];
+            successBlock(self, channels);
         }
         failure:^(AFHTTPRequestOperation* operation, NSError* error) {
             errorBlock(self, error);

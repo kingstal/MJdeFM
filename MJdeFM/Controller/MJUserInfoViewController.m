@@ -10,6 +10,9 @@
 #import "MJLoginViewController.h"
 #import "UIButton+AFNetworking.h"
 #import "MJUserInfo.h"
+#import "MJFetcher.h"
+#import "MJUserInfoManager.h"
+#import "MBProgressHUD.h"
 
 @interface MJUserInfoViewController () <MJLoginViewControllerDelegate>
 
@@ -35,6 +38,12 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    self.userInfo = [MJUserInfoManager sharedUserInfoManager].userInfo;
+}
 - (void)viewDidLayoutSubviews
 {
     [super viewWillLayoutSubviews];
@@ -42,17 +51,22 @@
     self.loginBtn.layer.masksToBounds = YES;
 }
 
-- (void)loginViewControllerLoginSuccess:(MJLoginViewController*)loginVC userInfo:(MJUserInfo*)userInfo
-{
-    self.userInfo = userInfo;
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)setUserInfo:(MJUserInfo*)userInfo
 {
     _userInfo = userInfo;
 
-    [self.loginBtn setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://img3.douban.com/icon/ul%@-1.jpg", userInfo.userID]]];
+    if (!userInfo) {
+        [self.loginBtn setBackgroundImage:[UIImage imageNamed:@"login"] forState:UIControlStateNormal];
+        self.loginBtn.userInteractionEnabled = YES;
+        self.usernameLabel.hidden = YES;
+        self.playedLabel.text = @"0";
+        self.likedLabel.text = @"0";
+        self.bannedLabel.text = @"0";
+        self.logoutBtn.hidden = YES;
+        return;
+    }
+    [self.loginBtn setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://img3.douban.com/icon/ul%@-1.jpg", userInfo.userID]] placeholderImage:[UIImage imageNamed:@"lufei"]];
+
     self.loginBtn.userInteractionEnabled = NO;
 
     self.usernameLabel.text = userInfo.name;
@@ -69,17 +83,29 @@
     [self presentViewController:loginVC animated:YES completion:nil];
 }
 
+- (void)loginViewControllerLoginSuccess:(MJLoginViewController*)loginVC userInfo:(MJUserInfo*)userInfo
+{
+    self.userInfo = userInfo;
+    [MJUserInfoManager sharedUserInfoManager].userInfo = userInfo;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)logoutBtnTapped:(UIButton*)sender
 {
-}
-/*
-#pragma mark - Navigation
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [[MJFetcher sharedFetcher] logoutUser:self.userInfo
+        success:^(MJFetcher* fetcher, id data) {
+            self.userInfo = nil;
+            [MJUserInfoManager sharedUserInfoManager].userInfo = nil;
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+        }
+        failure:^(MJFetcher* fetcher, NSError* error) {
+            NSLog(@"%@", error);
+        }];
 }
-*/
 
 @end

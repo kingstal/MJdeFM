@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "MJUserInfoManager.h"
+#import "MJChannelManager.h"
 
 @interface AppDelegate ()
 
@@ -17,8 +19,12 @@
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
     // Override point for customization after application launch.
-
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
+
+    // 如果已经登录，从文件中读取保存的登录信息
+    [MJUserInfoManager sharedUserInfoManager].userInfo = [[MJUserInfoManager sharedUserInfoManager] unarchiverUserInfo];
+
+    [[MJChannelManager sharedChannelManager] updateChannels];
     return YES;
 }
 
