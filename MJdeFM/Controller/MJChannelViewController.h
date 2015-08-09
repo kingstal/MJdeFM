@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-
 @class MJChannelViewController;
-@class MJChannel;
 
 @interface MJChannelViewController : UITableViewController
 

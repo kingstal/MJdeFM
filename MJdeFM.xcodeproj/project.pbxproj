@@ -147,13 +147,13 @@
 		8E222BB71B6EF9FD00C86CDC /* MJdeFM */ = {
 			isa = PBXGroup;
 			children = (
-				8E222BE61B6EFAAB00C86CDC /* Model */,
-				8E222BE71B6EFABE00C86CDC /* View */,
-				8E222BE81B6EFAC600C86CDC /* Controller */,
-				8E2687051B6F585100C86D76 /* Utility */,
+				8E222BC21B6EF9FD00C86CDC /* Main.storyboard */,
 				8E222BBC1B6EF9FD00C86CDC /* AppDelegate.h */,
 				8E222BBD1B6EF9FD00C86CDC /* AppDelegate.m */,
-				8E222BC21B6EF9FD00C86CDC /* Main.storyboard */,
+				8E222BE61B6EFAAB00C86CDC /* Models */,
+				8E222BE71B6EFABE00C86CDC /* Views */,
+				8E222BE81B6EFAC600C86CDC /* View Controllers */,
+				8E2687051B6F585100C86D76 /* Services */,
 				8E222BC51B6EF9FD00C86CDC /* Images.xcassets */,
 				8E222BC71B6EF9FD00C86CDC /* LaunchScreen.xib */,
 				8E222BB81B6EF9FD00C86CDC /* Supporting Files */,
@@ -199,7 +199,7 @@
 			path = YALContextMenu;
 			sourceTree = "<group>";
 		};
-		8E222BE61B6EFAAB00C86CDC /* Model */ = {
+		8E222BE61B6EFAAB00C86CDC /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				8E2686FF1B6F4FE600C86D76 /* MJSong.h */,
@@ -213,19 +213,19 @@
 				8E06D4311B70CC42007FF657 /* MJUserInfoManager.h */,
 				8E06D4321B70CC42007FF657 /* MJUserInfoManager.m */,
 			);
-			name = Model;
+			name = Models;
 			sourceTree = "<group>";
 		};
-		8E222BE71B6EFABE00C86CDC /* View */ = {
+		8E222BE71B6EFABE00C86CDC /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				8E222BEC1B6EFC0B00C86CDC /* ContextMenuCell */,
 				8E222BDE1B6EFAA300C86CDC /* YALContextMenu */,
 			);
-			name = View;
+			name = Views;
 			sourceTree = "<group>";
 		};
-		8E222BE81B6EFAC600C86CDC /* Controller */ = {
+		8E222BE81B6EFAC600C86CDC /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				8E222BE91B6EFB6100C86CDC /* MJTabBarController.h */,
@@ -239,7 +239,7 @@
 				8EECCA741B71E17600C3D786 /* MJChannelViewController.h */,
 				8EECCA751B71E17600C3D786 /* MJChannelViewController.m */,
 			);
-			name = Controller;
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		8E222BEC1B6EFC0B00C86CDC /* ContextMenuCell */ = {
@@ -252,13 +252,13 @@
 			path = ContextMenuCell;
 			sourceTree = "<group>";
 		};
-		8E2687051B6F585100C86D76 /* Utility */ = {
+		8E2687051B6F585100C86D76 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				8E2687061B6F58E600C86D76 /* MJFetcher.h */,
 				8E2687071B6F58E600C86D76 /* MJFetcher.m */,
 			);
-			name = Utility;
+			name = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

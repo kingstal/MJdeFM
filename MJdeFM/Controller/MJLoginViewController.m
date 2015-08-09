@@ -14,15 +14,15 @@
 
 @interface MJLoginViewController ()
 
-@property (nonatomic, weak) IBOutlet UIButton* captchaBtn;
-@property (nonatomic, weak) IBOutlet UITextField* username;
-@property (nonatomic, weak) IBOutlet UITextField* password;
-@property (nonatomic, weak) IBOutlet UITextField* captcha;
+@property(nonatomic, weak) IBOutlet UIButton *captchaBtn;
+@property(nonatomic, weak) IBOutlet UITextField *username;
+@property(nonatomic, weak) IBOutlet UITextField *password;
+@property(nonatomic, weak) IBOutlet UITextField *captcha;
 
-@property (nonatomic, strong) NSString* captchaID;
+@property(nonatomic, strong) NSString *captchaID;
 
-- (IBAction)submitButtonTapped:(UIButton*)sender;
-- (IBAction)cancelButtonTapped:(UIButton*)sender;
+- (IBAction)submitButtonTapped:(UIButton *)sender;
+- (IBAction)cancelButtonTapped:(UIButton *)sender;
 - (IBAction)backgroundTap:(id)sender;
 - (IBAction)captchaBtnTapped:(id)sender;
 
@@ -30,64 +30,68 @@
 
 @implementation MJLoginViewController
 
-- (void)
-viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self loadCaptcha];
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  [self loadCaptcha];
 }
 
-- (void)loadCaptcha
-{
-    [[MJFetcher sharedFetcher] fetchCaptchaImageURLSuccess:^(MJFetcher* fetcher, id data) {
-        NSArray* captchaArray = data;
-        self.captchaID = captchaArray[0];
-        [self.captchaBtn setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:captchaArray[1]]];
-    } failure:^(MJFetcher* fetcher, id data) {
-        NSLog(@"%@", data);
-    }];
+- (void)loadCaptcha {
+  [[MJFetcher sharedFetcher] fetchCaptchaImageURLSuccess:^(MJFetcher *fetcher,
+                                                           id data) {
+    NSArray *captchaArray = data;
+    self.captchaID = captchaArray[0];
+    [self.captchaBtn setImageForState:UIControlStateNormal
+                              withURL:[NSURL URLWithString:captchaArray[1]]];
+  } failure:^(MJFetcher *fetcher, id data) {
+    NSLog(@"%@", data);
+  }];
 }
 
-- (IBAction)captchaBtnTapped:(id)sender
-{
-    [self loadCaptcha];
+- (IBAction)captchaBtnTapped:(id)sender {
+  [self loadCaptcha];
 }
 
-- (IBAction)submitButtonTapped:(UIButton*)sender
-{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+- (IBAction)submitButtonTapped:(UIButton *)sender {
+  [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
-    NSString* username = _username.text;
-    NSString* password = _password.text;
-    NSString* captcha = _captcha.text;
+  NSString *username = _username.text;
+  NSString *password = _password.text;
+  NSString *captcha = _captcha.text;
 
-    [[MJFetcher sharedFetcher] loginwithUsername:username
-        password:password
-        captcha:captcha
-        captchaID:self.captchaID
-        rememberOnorOff:@"off"
-        success:^(MJFetcher* fetcher, id data) {
-            MJUserInfo* userInfo = data;
-            if ([userInfo.login isEqualToString:@"0"]) {
-                if ([self.delegate respondsToSelector:@selector(loginViewControllerLoginSuccess:userInfo:)]) {
-                    [self.delegate loginViewControllerLoginSuccess:self userInfo:userInfo];
-                }
-                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            }
+  [[MJFetcher sharedFetcher] loginwithUsername:username
+      password:password
+      captcha:captcha
+      captchaID:self.captchaID
+      rememberOnorOff:@"off"
+      success:^(MJFetcher *fetcher, id data) {
+        MJUserInfo *userInfo = data;
+        if ([userInfo.login isEqualToString:@"0"]) {
+          if ([self.delegate
+                  respondsToSelector:@selector(
+                                         loginViewControllerLoginSuccess:
+                                                                userInfo:)]) {
+            [self.delegate loginViewControllerLoginSuccess:self
+                                                  userInfo:userInfo];
+          }
+          dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+          });
         }
-        failure:^(MJFetcher* fetcher, NSError* error) {
-            NSLog(@"%@", error);
-        }];
+      }
+      failure:^(MJFetcher *fetcher, NSError *error) {
+        NSLog(@"%@", error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+      }];
 }
 
-- (IBAction)cancelButtonTapped:(UIButton*)sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (IBAction)cancelButtonTapped:(UIButton *)sender {
+  [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)backgroundTap:(id)sender
-{
-    [self.view endEditing:YES];
+- (IBAction)backgroundTap:(id)sender {
+  [self.view endEditing:YES];
 }
 
 @end
