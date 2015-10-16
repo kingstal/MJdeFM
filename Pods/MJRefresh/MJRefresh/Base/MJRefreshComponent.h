@@ -11,6 +11,7 @@
 #import "MJRefreshConst.h"
 #import "UIView+MJExtension.h"
 #import "UIScrollView+MJExtension.h"
+#import "UIScrollView+MJRefresh.h"
 
 /** 刷新控件的状态 */
 typedef enum {
@@ -74,16 +75,17 @@ typedef void (^MJRefreshComponentRefreshingBlock)();
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change;
 /** 当scrollView的contentSize发生改变的时候调用 */
 - (void)scrollViewContentSizeDidChange:(NSDictionary *)change;
-/** 当scrollView的contentInset发生改变的时候调用 */
-- (void)scrollViewContentInsetDidChange:(NSDictionary *)change;
 /** 当scrollView的拖拽状态发生改变的时候调用 */
 - (void)scrollViewPanStateDidChange:(NSDictionary *)change;
+
 
 #pragma mark - 其他
 /** 拉拽的百分比(交给子类重写) */
 @property (assign, nonatomic) CGFloat pullingPercent;
 /** 根据拖拽比例自动切换透明度 */
-@property (assign, nonatomic, getter=isAutoChangeAlpha) BOOL autoChangeAlpha;
+@property (assign, nonatomic, getter=isAutoChangeAlpha) BOOL autoChangeAlpha MJRefreshDeprecated("请使用automaticallyChangeAlpha属性");
+/** 根据拖拽比例自动切换透明度 */
+@property (assign, nonatomic, getter=isAutomaticallyChangeAlpha) BOOL automaticallyChangeAlpha;
 @end
 
 @interface UILabel(MJRefresh)

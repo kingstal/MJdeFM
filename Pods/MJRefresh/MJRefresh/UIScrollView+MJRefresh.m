@@ -12,6 +12,20 @@
 #import "MJRefreshFooter.h"
 #import <objc/runtime.h>
 
+@implementation NSObject (MJRefresh)
+
++ (void)exchangeInstanceMethod1:(SEL)method1 method2:(SEL)method2
+{
+    method_exchangeImplementations(class_getInstanceMethod(self, method1), class_getInstanceMethod(self, method2));
+}
+
++ (void)exchangeClassMethod1:(SEL)method1 method2:(SEL)method2
+{
+    method_exchangeImplementations(class_getClassMethod(self, method1), class_getClassMethod(self, method2));
+}
+
+@end
+
 @implementation UIScrollView (MJRefresh)
 
 #pragma mark - header
@@ -56,5 +70,73 @@ static const char MJRefreshFooterKey = '\0';
 - (MJRefreshFooter *)footer
 {
     return objc_getAssociatedObject(self, &MJRefreshFooterKey);
+}
+
+#pragma mark - other
+- (NSInteger)totalDataCount
+{
+    NSInteger totalCount = 0;
+    if ([self isKindOfClass:[UITableView class]]) {
+        UITableView *tableView = (UITableView *)self;
+        
+        for (NSInteger section = 0; section<tableView.numberOfSections; section++) {
+            totalCount += [tableView numberOfRowsInSection:section];
+        }
+    } else if ([self isKindOfClass:[UICollectionView class]]) {
+        UICollectionView *collectionView = (UICollectionView *)self;
+        
+        for (NSInteger section = 0; section<collectionView.numberOfSections; section++) {
+            totalCount += [collectionView numberOfItemsInSection:section];
+        }
+    }
+    return totalCount;
+}
+
+static const char MJRefreshReloadDataBlockKey = '\0';
+- (void)setReloadDataBlock:(void (^)(NSInteger))reloadDataBlock
+{
+    [self willChangeValueForKey:@"reloadDataBlock"]; // KVO
+    objc_setAssociatedObject(self, &MJRefreshReloadDataBlockKey, reloadDataBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    [self didChangeValueForKey:@"reloadDataBlock"]; // KVO
+}
+
+- (void (^)(NSInteger))reloadDataBlock
+{
+    return objc_getAssociatedObject(self, &MJRefreshReloadDataBlockKey);
+}
+
+- (void)executeReloadDataBlock
+{
+    !self.reloadDataBlock ? : self.reloadDataBlock(self.totalDataCount);
+}
+@end
+
+@implementation UITableView (MJRefresh)
+
++ (void)load
+{
+    [self exchangeInstanceMethod1:@selector(reloadData) method2:@selector(mj_reloadData)];
+}
+
+- (void)mj_reloadData
+{
+    [self mj_reloadData];
+    
+    [self executeReloadDataBlock];
+}
+@end
+
+@implementation UICollectionView (MJRefresh)
+
++ (void)load
+{
+    [self exchangeInstanceMethod1:@selector(reloadData) method2:@selector(mj_reloadData)];
+}
+
+- (void)mj_reloadData
+{
+    [self mj_reloadData];
+    
+    [self executeReloadDataBlock];
 }
 @end

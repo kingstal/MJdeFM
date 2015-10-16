@@ -35,12 +35,34 @@
     
     // 设置自己的高度
     self.mj_h = MJRefreshFooterHeight;
+    
+    // 默认是自动隐藏
+    self.automaticallyHidden = YES;
+}
+
+- (void)willMoveToSuperview:(UIView *)newSuperview
+{
+    [super willMoveToSuperview:newSuperview];
+    
+    if (newSuperview) {
+        // 监听scrollView数据的变化
+        [self.scrollView setReloadDataBlock:^(NSInteger totalDataCount) {
+            if (self.isAutomaticallyHidden) {
+                self.hidden = (totalDataCount == 0);
+            }
+        }];
+    }
 }
 
 #pragma mark - 公共方法
-- (void)noticeNoMoreData
+- (void)endRefreshingWithNoMoreData
 {
     self.state = MJRefreshStateNoMoreData;
+}
+
+- (void)noticeNoMoreData
+{
+    [self endRefreshingWithNoMoreData];
 }
 
 - (void)resetNoMoreData
